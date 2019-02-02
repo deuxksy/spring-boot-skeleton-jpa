@@ -1,0 +1,38 @@
+debug: false
+
+spring:
+  profiles:
+    active: local
+  application:
+    name: jpa
+  datasource:
+    url: jdbc:postgresql://localhost:5432/crom
+    hikari:
+      driver-class-name: org.postgresql.Driver
+      username: crom
+      password: qwe123
+      pool-name: ${spring.application.name}-${spring.profiles}
+  jpa:
+    properties:
+      hibernate:
+        temp:
+          use_jdbc_metadata_defaults: false
+        jdbc:
+          lob:
+            non-contextual-creation: true
+        format-sql: true
+    database-platform: org.hibernate.dialect.PostgreSQL9Dialect
+    show-sql: true
+
+---
+spring:
+  profiles: local
+  jpa:
+    hibernate:
+      ddl-auto: create
+---
+spring:
+  profiles: dev
+  jpa:
+    hibernate:
+      ddl-auto: validate
