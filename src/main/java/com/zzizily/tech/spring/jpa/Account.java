@@ -24,10 +24,33 @@ public class Account {
   private String password;
 
   @Temporal(TemporalType.TIMESTAMP)
-  private Date created = new Date();
+//  @Column(insertable = false, updatable = false)
+  private Date created;
 
+  // composite type 의 column 생성
+  @Embedded
+  private Address address;
+
+  @AttributeOverrides({
+    @AttributeOverride(name="street", column=@Column(name="home_street")),
+    @AttributeOverride(name="city", column=@Column(name="home_city")),
+    @AttributeOverride(name="state", column=@Column(name="home_state")),
+    @AttributeOverride(name="zipCode", column=@Column(name="home_zipCode")),
+  })
+  private Address homeAddress;
+
+  @AttributeOverrides({
+    @AttributeOverride(name="street", column=@Column(name="office_street")),
+    @AttributeOverride(name="city", column=@Column(name="office_city")),
+    @AttributeOverride(name="state", column=@Column(name="office_state")),
+    @AttributeOverride(name="zipCode", column=@Column(name="office_zipCode")),
+  })
+  private Address officeAddress;
+
+  // db column 생성
   private String yes;
 
+  // db column 안생성
   @Transient
   private String no;
 }
