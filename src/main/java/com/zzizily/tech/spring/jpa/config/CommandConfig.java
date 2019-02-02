@@ -43,11 +43,10 @@ public class CommandConfig implements ApplicationRunner, CommandLineRunner {
     Account account = Account.builder()
             .username("deuxksy")
             .password("qwe123")
-            .created(new Date())
             .build();
 
     Session session = entityManager.unwrap(Session.class);
     session.save(account);
-    entityManager.persist(account);
+//    entityManager.persist(account);
   }
 }

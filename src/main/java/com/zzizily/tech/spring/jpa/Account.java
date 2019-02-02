@@ -1,6 +1,7 @@
 package com.zzizily.tech.spring.jpa;
 
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -24,7 +25,8 @@ public class Account {
   private String password;
 
   @Temporal(TemporalType.TIMESTAMP)
-//  @Column(insertable = false, updatable = false)
+  @Column(nullable = false, updatable = false)
+  @CreationTimestamp
   private Date created;
 
   // composite type 의 column 생성
