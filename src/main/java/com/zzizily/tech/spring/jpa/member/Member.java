@@ -13,10 +13,12 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(of = "id")
-@NamedQuery(
-  name = "Member.findByName",
-  query = "SELECT m FROM Member m where m.name = :name"
-)
+@NamedQueries({
+  @NamedQuery(
+    name = "Member.findByName",
+    query = "SELECT m FROM Member m where m.name = :name"
+  )
+})
 public class Member extends BaseObject {
 
   @Id
