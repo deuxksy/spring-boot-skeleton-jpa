@@ -3,6 +3,7 @@ package com.zzizily.tech.spring.jpa.web;
 import com.sun.org.apache.xpath.internal.operations.Mod;
 import com.zzizily.tech.spring.jpa.member.*;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +19,7 @@ import java.util.List;
 
 @RestController
 @AllArgsConstructor
+@Slf4j
 public class APIController {
 
   @PersistenceContext
@@ -36,6 +38,15 @@ public class APIController {
 
     memberRepository.save(Member.builder().name("이승식").age(38).team(service).memberType(MemberType.ADMIN).build());
     memberRepository.save(Member.builder().name("김석영").age(38).team(backend).memberType(MemberType.USER).build());
+  }
+
+  @GetMapping("/api/fetch")
+  public ResponseEntity fetch() {
+    String jpql = "SELECT m FROM Member m JOIN fetch m.team";
+    List<Member> members = entityManager.createQuery(jpql, Member.class).getResultList();
+    java.lang.reflect.Type targetListType = new TypeToken<List<MemberDTO>>() {}.getType();
+    List<MemberDTO> membersDTO = modelMapper.map(members, targetListType);
+    return ResponseEntity.ok().body(membersDTO);
   }
 
   @GetMapping("/api/named/{name}")
