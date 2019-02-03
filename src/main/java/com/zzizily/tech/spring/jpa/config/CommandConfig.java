@@ -1,6 +1,6 @@
 package com.zzizily.tech.spring.jpa.config;
 
-import com.zzizily.tech.spring.jpa.Account;
+import com.zzizily.tech.spring.jpa.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
@@ -19,6 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.Date;
+import java.util.List;
 
 @Component
 @Slf4j
@@ -33,20 +34,53 @@ public class CommandConfig implements ApplicationRunner, CommandLineRunner {
 
   @Override
   public void run(String... args) throws Exception {
-//    log.error("{},{}", profiles, args);
-  }
-
-  @Override
-  public void run(ApplicationArguments args) throws Exception {
-//    log.error("{},{}", profiles, args);
-//    log.error("{},{},{}", args.getNonOptionArgs(), args.getOptionNames(), args.getSourceArgs());
     Account account = Account.builder()
             .username("deuxksy")
             .password("qwe123")
             .build();
+    entityManager.persist(account);
+    entityManager.flush();
+  }
 
-    Session session = entityManager.unwrap(Session.class);
-    session.save(account);
-//    entityManager.persist(account);
+  @Override
+  public void run(ApplicationArguments args) throws Exception {
+    Team teamBackEnd = Team.builder()
+            .name("백엔드팀")
+            .build();
+    entityManager.persist(teamBackEnd);
+
+    Team teamService = Team.builder()
+            .name("서비스팀")
+            .build();
+    entityManager.persist(teamService);
+
+    Member lss = Member.builder()
+            .age(38)
+            .name("이승식")
+            .team(teamService)
+            .memberType(MemberType.ADMIN)
+            .build();
+
+    Member ksy = Member.builder()
+            .age(38)
+            .name("김석영")
+            .team(teamBackEnd)
+            .memberType(MemberType.ADMIN)
+            .build();
+
+    entityManager.persist(ksy);
+    entityManager.persist(lss);
+
+    entityManager.flush();
+    entityManager.clear();
+
+    log.info("{},{}",ksy.getName(), ksy.getTeam().getName());
+
+    Member findKsy = entityManager.find(Member.class, ksy.getId());
+    log.info("{},{}",findKsy.getName(), findKsy.getTeam().getName());
+
+    findKsy.setTeam(teamService);
+
+    log.info("{},{}",findKsy.getName(), findKsy.getTeam().getName());
   }
 }
