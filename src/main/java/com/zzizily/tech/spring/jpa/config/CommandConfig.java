@@ -30,38 +30,13 @@ public class CommandConfig implements ApplicationRunner, CommandLineRunner {
   @Override
   public void run(String... args) throws Exception {
     Account account = Account.builder()
-            .username("deuxksy")
-            .password("qwe123")
+            .username("test")
+            .password("test123")
             .build();
     entityManager.persist(account);
-    entityManager.flush();
   }
 
   @Override
   public void run(ApplicationArguments args) throws Exception {
-    /*Team teamService = Team.builder()
-            .name("서비스팀")
-            .build();
-    entityManager.persist(teamService);
-
-    Member lss = Member.builder()
-            .age(38)
-            .name("이승식")
-            .team(teamService)
-            .memberType(MemberType.ADMIN)
-            .build();
-    entityManager.persist(lss);
-
-    String jpql = "SELECT m FROM Member m JOIN fetch m.team";
-
-    List<Member> members = entityManager.createQuery(jpql, Member.class).getResultList();
-    log.info("{}", members.size());
-    members.forEach(member -> {
-      log.info("{}", member);
-    });
-    Member queryKsy = entityManager.createQuery("Member.findByName", Member.class)
-            .setParameter("name", "김석영")
-            .getSingleResult();
-    log.info("{}", queryKsy);*/
   }
 }

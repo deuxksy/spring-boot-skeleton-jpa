@@ -1,5 +1,6 @@
 package com.zzizily.tech.spring.jpa;
 
+import com.zzizily.tech.spring.jpa.member.Account;
 import lombok.*;
 
 import javax.persistence.Entity;
