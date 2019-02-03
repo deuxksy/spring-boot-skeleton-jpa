@@ -27,6 +27,7 @@ dependencies {
   implementation 'org.springframework.boot:spring-boot-starter-web'
   implementation 'org.springframework.boot:spring-boot-devtools'
   implementation 'org.apache.commons:commons-lang3:3.4'
+  implementation 'org.modelmapper:modelmapper:2.3.2'
 
   compileOnly 'org.projectlombok:lombok'
   runtimeOnly 'org.postgresql:postgresql'
