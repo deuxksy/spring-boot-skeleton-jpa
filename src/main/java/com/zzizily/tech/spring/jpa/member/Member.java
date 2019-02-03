@@ -1,5 +1,6 @@
-package com.zzizily.tech.spring.jpa;
+package com.zzizily.tech.spring.jpa.member;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.zzizily.tech.spring.jpa.cmmons.BaseObject;
 import lombok.*;
 
@@ -11,17 +12,23 @@ import javax.persistence.*;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@EqualsAndHashCode(of = "id")
+@NamedQuery(
+  name = "Member.findByName",
+  query = "SELECT m FROM Member m where m.name = :name"
+)
 public class Member extends BaseObject {
 
   @Id
   @GeneratedValue(strategy = GenerationType.TABLE, generator = "member_sequence")
   private Long id;
   private String name;
-  private int age;
+  private Integer age;
 
 //  @ManyToOne(fetch = FetchType.LAZY)
   @ManyToOne
   @JoinColumn
+  @JsonManagedReference
   private Team team;
 
   @Enumerated(EnumType.STRING)

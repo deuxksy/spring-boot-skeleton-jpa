@@ -1,10 +1,9 @@
-package com.zzizily.tech.spring.jpa;
+package com.zzizily.tech.spring.jpa.member;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.zzizily.tech.spring.jpa.cmmons.BaseObject;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import com.zzizily.tech.spring.jpa.member.Member;
+import lombok.*;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -18,6 +17,7 @@ import java.util.List;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
+@EqualsAndHashCode(of = "id")
 public class Team extends BaseObject {
 
   @Id
@@ -26,5 +26,6 @@ public class Team extends BaseObject {
   private String name;
 
   @OneToMany(mappedBy = "team") //조회만 한다
+  @JsonBackReference
   private List<Member> members = new ArrayList<>();
 }

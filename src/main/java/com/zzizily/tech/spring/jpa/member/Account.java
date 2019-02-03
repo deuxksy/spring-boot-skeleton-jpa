@@ -1,5 +1,6 @@
-package com.zzizily.tech.spring.jpa;
+package com.zzizily.tech.spring.jpa.member;
 
+import com.zzizily.tech.spring.jpa.Address;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
