@@ -4,14 +4,14 @@ spring:
   profiles:
     active: local
   application:
-    name: jpa
+    name: jpa-${spring.profiles}
   datasource:
-    url: jdbc:postgresql://localhost:5432/crom
+    url: jdbc:postgresql://localhost:5432/crom?currentSchema=${spring.profiles}
     hikari:
       driver-class-name: org.postgresql.Driver
       username: crom
       password: qwe123
-      pool-name: ${spring.application.name}-${spring.profiles}
+      pool-name: ${spring.application.name}-pool
   jpa:
     properties:
       hibernate:
@@ -19,9 +19,10 @@ spring:
           use_jdbc_metadata_defaults: false
         jdbc:
           lob:
-            non-contextual-creation: true
+            non_contextual_creation: true
         format_sql: true
-    database-platform: org.hibernate.dialect.PostgreSQL9Dialect
+        use_sql_comments : true
+    database-platform: org.hibernate.dialect.PostgreSQL95Dialect
     show-sql: true
 
 ---
@@ -29,10 +30,11 @@ spring:
   profiles: local
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: create-drop
 ---
 spring:
   profiles: dev
   jpa:
     hibernate:
       ddl-auto: validate
+    properties:
