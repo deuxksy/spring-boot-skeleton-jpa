@@ -2,14 +2,13 @@ package com.zzizily.tech.spring.jpa;
 
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
-import javax.validation.constraints.Email;
 import java.util.Date;
 
 @Entity
 @Builder
-@Setter
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
@@ -18,16 +17,21 @@ public class Account {
   @GeneratedValue(strategy = GenerationType.AUTO, generator = "account_sequence")
   private Long id;
 
-  @Column(nullable = false, unique = true)
+  @Column(nullable = false, unique = true, length = 50)
   private String username;
 
   @Column(nullable = false)
   private String password;
 
   @Temporal(TemporalType.TIMESTAMP)
-  @Column(nullable = false, updatable = false)
+  @Column(insertable = false, updatable = false)
   @CreationTimestamp
   private Date created;
+
+  @Temporal(TemporalType.TIMESTAMP)
+  @Column(insertable = false, updatable = false)
+  @UpdateTimestamp
+  private Date updated;
 
   // composite type 의 column 생성
   @Embedded
