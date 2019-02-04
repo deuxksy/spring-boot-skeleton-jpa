@@ -12,7 +12,7 @@ import java.util.Date;
 @Builder
 @Getter
 @AllArgsConstructor
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Account {
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO, generator = "account_sequence")

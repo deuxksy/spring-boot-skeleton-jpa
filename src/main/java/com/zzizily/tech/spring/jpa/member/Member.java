@@ -11,7 +11,7 @@ import javax.persistence.*;
 @Getter
 @Setter
 @AllArgsConstructor
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @EqualsAndHashCode(of = "id")
 @NamedQueries({
   @NamedQuery(

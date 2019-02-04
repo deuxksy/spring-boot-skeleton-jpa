@@ -16,7 +16,7 @@ import java.util.List;
 @Builder
 @Getter
 @AllArgsConstructor
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @EqualsAndHashCode(of = "id")
 public class Team extends BaseObject {
 
