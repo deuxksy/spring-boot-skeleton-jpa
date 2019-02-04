@@ -1,6 +1,5 @@
 package com.zzizily.tech.spring.jpa.web;
 
-import com.sun.org.apache.xpath.internal.operations.Mod;
 import com.zzizily.tech.spring.jpa.member.*;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -14,7 +13,6 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.annotation.PostConstruct;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.swing.text.html.parser.Entity;
 import java.util.List;
 
 @RestController
